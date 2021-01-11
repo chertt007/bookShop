@@ -10,6 +10,8 @@ import {
     Route,
     Link
 } from "react-router-dom";
+import Book from "./components/common/Book";
+import BookContainer from "./components/common/BookContainer";
 
 
 
@@ -41,7 +43,9 @@ import {
           <Route path='/user' exact render={()=>{
               return <UserContainer />
           }} />
-
+          <Route path='/books/:id' render={()=> {
+              return <BookContainer />
+          }}/>
       </Switch>
       </Router>
 );
