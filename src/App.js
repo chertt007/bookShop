@@ -14,7 +14,7 @@ import {
 
 
  const App = ( ) =>  {
-
+    //todo localStorage token
     const appState = useSelector(state => state.app);
     const {loggedIn,activeId, isAdmin} = appState;
     console.log(loggedIn, activeId,isAdmin)
@@ -41,6 +41,7 @@ import {
           <Route path='/user' exact render={()=>{
               return <UserContainer />
           }} />
+
       </Switch>
       </Router>
 );
