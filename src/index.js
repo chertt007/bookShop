@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {Provider} from "react-redux";
 import store from "./redux/store";
+import {BrowserRouter} from "react-router-dom";
 
 // DEV ONLY!!!
 window.store = store;
@@ -12,7 +13,9 @@ window.store = store;
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+
+        <App />
+
   </Provider>,
   document.getElementById('root')
 );
