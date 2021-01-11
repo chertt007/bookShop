@@ -12,6 +12,7 @@ import {
 } from "react-router-dom";
 import Book from "./components/common/Book";
 import BookContainer from "./components/common/BookContainer";
+import AddBook from "./components/addBook";
 
 
 
@@ -25,8 +26,6 @@ import BookContainer from "./components/common/BookContainer";
 
   return (
       <Router>
-
-
       <Switch>
           <Route path='/' exact render={()=>{
               if(loggedIn && isAdmin){
@@ -45,6 +44,9 @@ import BookContainer from "./components/common/BookContainer";
           }} />
           <Route path='/books/:id' render={()=> {
               return <BookContainer />
+          }}/>
+          <Route path='/add/book' render={()=>{
+              return <AddBook />
           }}/>
       </Switch>
       </Router>
