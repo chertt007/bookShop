@@ -7,7 +7,7 @@ import {useSelector} from "react-redux";
 import {
     BrowserRouter as Router,
     Switch,
-    Route,
+    Route, NavLink, Redirect,
 
 } from "react-router-dom";
 import BookContainer from "./components/common/BookContainer";
@@ -18,22 +18,46 @@ import AddBook from "./components/addBook";
  const App = ( ) =>  {
     //todo localStorage token
     const appState = useSelector(state => state.app);
-    const {loggedIn,activeId, isAdmin} = appState;
+    const {loggedIn,activeId, isAdmin,activeName} = appState;
     console.log(loggedIn, activeId,isAdmin)
 
 
 
   return (
+
+
       <Router>
+          <header>
+              <NavLink to='/'><h2>LOGO</h2></NavLink>
+              {loggedIn ?  <div>
+                  <h3>Your Name : {activeName} </h3>
+                  <h3>Your Role : {isAdmin ? 'Administrator' : 'User'}
+                  </h3>
+              </div> : <h3>HI Guest, please sign in to get access to service</h3>}
+
+           <NavLink to='/login'><button>{loggedIn ? 'log out' : 'sign in'}</button></NavLink>
+          </header>
+
       <Switch>
           <Route path='/' exact render={()=>{
-              if(loggedIn && isAdmin){
-                  return <AdminContainer />
+              if(isAdmin && loggedIn){
+                  return <Redirect to='/admin'/>
               }
-              if(loggedIn && !isAdmin){
-                  return <UserContainer />
+              if(!isAdmin && loggedIn){
+                  debugger
+                  return <Redirect to='/user'/>
               }
-              return <Login />
+              return <h2>Public Container</h2>
+          }} />
+          <Route path='/login' exact render={()=> {
+              if(isAdmin && loggedIn){
+                  return <Redirect to='/'/>
+              }
+              if(!isAdmin && loggedIn){
+                  debugger
+                  return <Redirect to='/'/>
+              }
+             return <Login/>
           }} />
           <Route path='/admin' exact render={()=>{
               return <AdminContainer />
@@ -41,16 +65,16 @@ import AddBook from "./components/addBook";
           <Route path='/user' exact render={()=>{
               return <UserContainer />
           }} />
-          <Route path='/books/:id' render={()=> {
+          <Route path='/books/:id' exact render={()=> {
               return <BookContainer />
           }}/>
-          <Route path='/add/book' render={()=>{
+          <Route path='/add/book' exact render={()=>{
               return <AddBook />
           }}/>
-          <Route path='/add/author' render={()=>{
+          <Route path='/add/author'  exact render={()=>{
               return (<h1>Adding authors function in development </h1>)
           }}/>
-          <Route path='/add/publisher' render={()=>{
+          <Route path='/add/publisher' exact render={()=>{
               return (<h1>Adding publishers function in development </h1>)
           }}/>
       </Switch>
