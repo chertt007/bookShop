@@ -1,9 +1,9 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import './App.css';
 import Login from "./components/login";
 import UserContainer from "./components/user";
 import AdminContainer from "./components/admin";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {
     BrowserRouter as Router,
     Switch,
@@ -14,16 +14,43 @@ import BookContainer from "./components/common/BookContainer";
 import AddBook from "./components/addBook";
 import Header from "./components/header";
 import Logout from "./components/logout";
+import EditBook from "./components/editBook";
+import GuestContainer from "./components/guest";
+import {loginAction, setActiveUserId, setActiveUserName, setAdministratorAccess, setUserAccess} from "./redux/actions";
 
 
 
  const App = ( ) =>  {
-    //todo localStorage token
+     const dispatch = useDispatch();
+     useEffect(()=>{
+       const isAdmin =  JSON.parse(localStorage.getItem('isAdmin'))
+       const id =  localStorage.getItem('id');
+       const name =  localStorage.getItem('name');
+
+         dispatch(setActiveUserId(id));
+         dispatch(setActiveUserName(name))
+         if(isAdmin){
+             dispatch(setAdministratorAccess());
+             dispatch(loginAction());
+
+         }
+         if(!isAdmin){
+
+             dispatch(setUserAccess());
+             dispatch(loginAction());
+         }
+
+
+     },[]);
     const appState = useSelector(state => state.app);
     const {loggedIn,activeId, isAdmin,activeName} = appState;
 
 
-
+    const checkIsLogin = (status) => {
+        if(!status){
+            return <Redirect to='/' />
+        }
+    }
   return (
 
 
@@ -38,7 +65,7 @@ import Logout from "./components/logout";
 
                   return <Redirect to='/user'/>
               }
-              return <h2>Public Container</h2>
+              return <GuestContainer />
           }} />
           <Route path='/login' exact render={()=> {
               if(isAdmin && loggedIn){
@@ -50,22 +77,49 @@ import Logout from "./components/logout";
               }
              return <Login/>
           }} />
+
+
           <Route path='/admin' exact render={()=>{
+              if(!loggedIn){
+                  return <Redirect to='/' />
+              }
               return <AdminContainer />
           }} />
           <Route path='/user' exact render={()=>{
-              return <UserContainer />
+              if(!loggedIn){
+                  return <Redirect to='/' />
+              }
+              return <UserContainer activeName={activeName} />
           }} />
-          <Route path='/books/:id' exact render={()=> {
-              return <BookContainer />
+
+          <Route path='/edit/:id' exact render={()=>{
+              if(!loggedIn){
+                  return <Redirect to='/' />
+              }
+              return<EditBook />
           }}/>
           <Route path='/add/book' exact render={()=>{
+              if(!loggedIn){
+                  return <Redirect to='/' />
+              }
               return <AddBook />
           }}/>
+          <Route path='/books/:id' exact render={()=> {
+              if(!loggedIn){
+                  return <Redirect to='/' />
+              }
+              return <BookContainer />
+          }}/>
           <Route path='/add/author'  exact render={()=>{
+              if(!loggedIn){
+                  return <Redirect to='/' />
+              }
               return (<h1>Adding authors function in development </h1>)
           }}/>
           <Route path='/add/publisher' exact render={()=>{
+              if(!loggedIn){
+                  return <Redirect to='/' />
+              }
               return (<h1>Adding publishers function in development </h1>)
           }}/>
           <Route path='/logout' exact render={()=>{
