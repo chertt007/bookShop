@@ -8,9 +8,8 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
-    Link
+
 } from "react-router-dom";
-import Book from "./components/common/Book";
 import BookContainer from "./components/common/BookContainer";
 import AddBook from "./components/addBook";
 
@@ -47,6 +46,12 @@ import AddBook from "./components/addBook";
           }}/>
           <Route path='/add/book' render={()=>{
               return <AddBook />
+          }}/>
+          <Route path='/add/author' render={()=>{
+              return (<h1>Adding authors function in development </h1>)
+          }}/>
+          <Route path='/add/publisher' render={()=>{
+              return (<h1>Adding publishers function in development </h1>)
           }}/>
       </Switch>
       </Router>
