@@ -1,0 +1,21 @@
+
+export const ADD_NEW_BOOK = 'ADD_NEW_BOOK';
+export const REMOVE_BOOK = 'REMOVE_BOOK';
+export const EDIT_BOOK = 'EDIT_BOOK';
+
+export const LOGIN = 'LOGIN';
+export const LOGOUT = 'LOGOUT';
+export const SET_ADMINISTRATOR_ACCESS = 'SET_ADMINISTRATOR_ACCESS';
+export const SET_USER_ACCESS = 'SET_USER_ACCESS';
+export const  SET_ACTIVE_USER_ID = ' SET_ACTIVE_USER_ID';
+export const  SET_ACTIVE_USER_NAME = ' SET_ACTIVE_USER_NAME';
+
+export const ADD_BOOK_TO_CART = 'ADD_BOOK_TO_CART';
+export const REMOVE_BOOK_FROM_CART = 'REMOVE_BOOK_FROM_CART';
+export const REMOVE_POSITION_FROM_CART = 'REMOVE_POSITION_FROM_CART';
+export const CLEAR_CART = 'CLEAR_CART';
+
+export const PURCHASE_ITEMS = 'PURCHASE_ITEMS';
+
+export const ON_FILTER_CHANGE ='ON_FILTER_CHANGE';
+

@@ -1,0 +1,32 @@
+Book Shop Assignment
+Description:
+
+On this assignment, you will create a book shop for users that want to purchase
+books and admin area for implement crud (create, read, update, delete)
+Requirements:
+
+1. User Area
+● User get list of books.
+● User can search for a book.
+● User need to login (authentication JWT), to purchase a book.
+● User need to login (authentication JWT), to see the last books he
+purchased.
+
+2. Admin Area
+● Admin needs to log in (authentication JWT).
+● Admin get the list of books.
+● Admin can create, update and delete a book.
+● Admin can search for a book.
+
+
+Technologies:
+For the Client-side you may use Angular or React
+For the server-side you may use Java or .NetCore or NodeJs
+For the database you can use hardcoded data
+*Bonus NoSql DB
+
+Entities
+● Books
+● Author
+● Publisher
+● User
