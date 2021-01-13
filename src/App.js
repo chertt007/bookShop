@@ -27,19 +27,18 @@ import {loginAction, setActiveUserId, setActiveUserName, setAdministratorAccess,
        const id =  localStorage.getItem('id');
        const name =  localStorage.getItem('name');
 
-         dispatch(setActiveUserId(id));
-         dispatch(setActiveUserName(name))
-         if(isAdmin){
-             dispatch(setAdministratorAccess());
-             dispatch(loginAction());
-
-         }
-         if(!isAdmin){
-
-             dispatch(setUserAccess());
-             dispatch(loginAction());
-         }
-
+            if(id && name){
+                dispatch(setActiveUserId(id));
+                dispatch(setActiveUserName(name))
+                if(isAdmin){
+                    dispatch(setAdministratorAccess());
+                    dispatch(loginAction());
+                }
+                if(!isAdmin){
+                    dispatch(setUserAccess());
+                    dispatch(loginAction());
+                }
+            }
 
      },[]);
     const appState = useSelector(state => state.app);
@@ -58,10 +57,10 @@ import {loginAction, setActiveUserId, setActiveUserName, setAdministratorAccess,
               <Header isAdmin={isAdmin} loggedIn={loggedIn} activeName={activeName}/>
       <Switch>
           <Route path='/' exact render={()=>{
-              if(isAdmin && loggedIn){
+              if(loggedIn && isAdmin){
                   return <Redirect to='/admin'/>
               }
-              if(!isAdmin && loggedIn){
+              if(loggedIn && !isAdmin  ){
 
                   return <Redirect to='/user'/>
               }
@@ -105,9 +104,7 @@ import {loginAction, setActiveUserId, setActiveUserName, setAdministratorAccess,
               return <AddBook />
           }}/>
           <Route path='/books/:id' exact render={()=> {
-              if(!loggedIn){
-                  return <Redirect to='/' />
-              }
+
               return <BookContainer />
           }}/>
           <Route path='/add/author'  exact render={()=>{
@@ -122,9 +119,9 @@ import {loginAction, setActiveUserId, setActiveUserName, setAdministratorAccess,
               }
               return (<h1>Adding publishers function in development </h1>)
           }}/>
-          <Route path='/logout' exact render={()=>{
-             return <Logout />
-          }}/>
+         {/* <Route path='/logout' exact render={()=>{
+
+          }}/>*/}
       </Switch>
       </Router>
 );
